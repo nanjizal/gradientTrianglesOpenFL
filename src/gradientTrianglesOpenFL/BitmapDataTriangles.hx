@@ -1,5 +1,7 @@
 package gradientTrianglesOpenFL;
+import openfl.display.BitmapData;
 import gradientTrianglesOpenFL.IteratorRange;
+import lime.math.ARGB;
 @:forward
 abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     public inline function new( bd: BitmapData ){
@@ -45,6 +47,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                     var r = boundChannel( rA*ratioA + rB*ratioB + rC*ratioC );
                     var g = boundChannel( gA*ratioA + gB*ratioB + gC*ratioC );
                     var b = boundChannel( bA*ratioA + bB*ratioB + bC*ratioC );
+                    this.setPixel32( px, py, 
                     // TODO: pixelImage.set_argbPixel( a, r, g, b, pixelImage.position( px, py ) );
                 }
             }
