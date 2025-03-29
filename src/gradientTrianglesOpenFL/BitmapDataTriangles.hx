@@ -59,7 +59,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
             return ax * by - ay * bx;
         private inline static function dot( ax: Float, ay: Float, bx: Float, by: Float ): Float
             return ax * bx + ay * by;
-        private inline function dotSame( ax: Float, ay: Float ): Float
+        private inline static function dotSame( ax: Float, ay: Float ): Float
             return dot( ax, ay, ax, ay );
         private static inline function rotX( x: Float, y: Float, sin: Float, cos: Float ): Float
             return x * cos - y * sin;
