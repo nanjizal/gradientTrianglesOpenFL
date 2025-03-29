@@ -1,5 +1,5 @@
 package gradientTrianglesOpenFL;
-
+import gradientTrianglesOpenFL.IteratorRange;
 @:forward
 abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     public inline function new( bd: BitmapData ){
