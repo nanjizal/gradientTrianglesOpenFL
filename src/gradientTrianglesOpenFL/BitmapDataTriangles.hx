@@ -51,20 +51,21 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                 }
             }
         }
-        private inline static function boundChannel( f: Float ): Int {
-            var i = Std.int( f );
-            if( i > 0xFF ) i = 0xFF;
-            if( i < 0 ) i = 0;
-            return i;
-        }
-        private inline static function cross2d( ax: Float, ay: Float, bx: Float, by: Float ): Float
-            return ax * by - ay * bx;
-        private inline static function dot( ax: Float, ay: Float, bx: Float, by: Float ): Float
-            return ax * bx + ay * by;
-        private inline static function dotSame( ax: Float, ay: Float ): Float
-            return dot( ax, ay, ax, ay );
-        private static inline function rotX( x: Float, y: Float, sin: Float, cos: Float ): Float
-            return x * cos - y * sin;
-        private static inline function rotY( x: Float, y: Float, sin: Float, cos: Float ): Float
-            return y * cos + x * sin; 
+    }
+    private inline static function boundChannel( f: Float ): Int {
+        var i = Std.int( f );
+        if( i > 0xFF ) i = 0xFF;
+        if( i < 0 ) i = 0;
+        return i;
+    }
+    private inline static function cross2d( ax: Float, ay: Float, bx: Float, by: Float ): Float
+        return ax * by - ay * bx;
+    private inline static function dot( ax: Float, ay: Float, bx: Float, by: Float ): Float
+        return ax * bx + ay * by;
+    private inline static function dotSame( ax: Float, ay: Float ): Float
+        return dot( ax, ay, ax, ay );
+    private static inline function rotX( x: Float, y: Float, sin: Float, cos: Float ): Float
+        return x * cos - y * sin;
+    private static inline function rotY( x: Float, y: Float, sin: Float, cos: Float ): Float
+        return y * cos + x * sin; 
 }
