@@ -10,7 +10,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     }
     public inline function drawGradientTriangle( ax: Float, ay: Float, colA: Int
                                                       , bx: Float, by: Float, colB: Int
-                                                      , cx: Float, cy: Float, colC: Int ): BitmapDataTriangles {
+                                                      , cx: Float, cy: Float, colC: Int, blend = false ): BitmapDataTriangles {
         var aA = ( colB >> 24 ) & 0xFF;
         var rA = ( colB >> 16 ) & 0xFF;
         var gA = ( colB >> 8 ) & 0xFF;
@@ -48,7 +48,12 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                     var r = boundChannel( rA*ratioA + rB*ratioB + rC*ratioC );
                     var g = boundChannel( gA*ratioA + gB*ratioB + gC*ratioC );
                     var b = boundChannel( bA*ratioA + bB*ratioB + bC*ratioC );
-                    this.setPixel32( px, py, ARGB.create( a, r, g, b ) );
+                    var color = ARGB.create( a, r, g, b );
+                    if( blend == false ){
+                        this.setPixel32( px, py, color );
+                    } else {
+                        this.setPixel( alphaBlend( this.getPixel32( px, py ), color ) );
+                    }
                 }
             }
         }
@@ -56,7 +61,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     }
     public inline function drawTileTriangle( ax: Float, ay: Float
                                            , bx: Float, by: Float
-                                           , cx: Float, cy: Float, tileImage: BitmapData ): BitmapDataTriangles {
+                                           , cx: Float, cy: Float, tileImage: BitmapData, blend = false ): BitmapDataTriangles {
         var s0 = ay*cx - ax*cy;
         var sx = cy - ay;
         var sy = ax - cx;
@@ -85,7 +90,11 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                     if( (s + t) < A ) {
                         // store first hit
                         var color = tileImage.getPixel32( x % (tileImage.width), y % (tileImage.height) );
-                        this.setPixel32( x, y, color );
+                        if( blend == false ){
+                            this.setPixel32( x, y, color );
+                        } else {
+                            this.setPixel( alphaBlend( this.getPixel32( x, y ), color ) );
+                        }
                         foundY = true;
                     } else {
                         // after filling break
@@ -100,7 +109,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     inline function drawUVTriangle( ax: Float, ay: Float, au: Float, av: Float
                                   , bx: Float, by: Float, bu: Float, bv: Float
                                   , cx: Float, cy: Float, cu: Float, cv: Float
-                                  , texture: BitmapData, win: Rectangle ): BitmapDataTriangles {
+                                  , texture: BitmapData, win: Rectangle, blend = false ): BitmapDataTriangles {
     // switch A B as per gradient ( consider xor's )
         var temp = au;
         au = bu;
@@ -135,7 +144,11 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                     var x = Std.int( u*win.width + win.x );
                     var y = Std.int( v*win.height + win.y );
                     var col = texture.getPixel32( x, y );
-                    this.setPixel32( px, py, col );
+                    if( blend == false ){
+                        this.setPixel32( px, py, col );
+                    } else {
+                        this.setPixel( alphaBlend( this.getPixel32( px, py ), col ) );
+                    }
                 }
             }
         }
@@ -157,5 +170,27 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     private static inline function rotX( x: Float, y: Float, sin: Float, cos: Float ): Float
         return x * cos - y * sin;
     private static inline function rotY( x: Float, y: Float, sin: Float, cos: Float ): Float
-        return y * cos + x * sin; 
+        return y * cos + x * sin;
+    
+    public function alphaBlend( orig: Int, onTop: Int ): Int {
+        var a1 = ( orig >> 24 ) & 0xFF;
+        var r1 = ( orig >> 16 ) & 0xFF;
+        var g1 = ( orig >> 8 ) & 0xFF;
+        var b1 = orig & 0xFF;
+        var a2 = ( onTop >> 24 ) & 0xFF;
+        var r2 = ( onTop >> 16 ) & 0xFF;
+        var g2 = ( onTop >> 8 ) & 0xFF;
+        var b2 = onTop & 0xFF;
+        var a3 = a1 * ( 1 - a2 );
+        var r = boundChannels( colBlendFunc( r1, r2, a3, a2 ) );
+        var g = boundChannels( colBlendFunc( g1, g2, a3, a2 ) );
+        var b = boundChannels( colBlendFunc( b1, b2, a3, a2 ) );
+        var a = boundChannels( alphaBlendFunc( a3, a2 ) );
+        return ARGB.create( a, r, g, b );
+    }
+    inline static function colBlendFunc( x1: Float, x2: Float, a3: Float, a2: Float ): Int
+        return Std.int( 255 * ( x1 * a3 + x2 * a2 ) );
+    inline static function alphaBlendFunc( a3: Float, a2: Float ): Int
+        return Std.int( 255 * ( a3 + a2 ) );
+
 }
