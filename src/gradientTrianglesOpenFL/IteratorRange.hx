@@ -1,4 +1,21 @@
 package gradientTrianglesOpenFL;
+import gradientTrianglesOpenFL.IteratorRange;
+    inline 
+    function boundIterator3( a: Float, b: Float, c: Float ): IteratorRange {
+        return if( a > b ){
+            if( a > c ){ // a,b a,c
+                (( b > c )? Math.floor( c ): Math.floor( b ))...Math.ceil( a );
+            } else { // c,a,b
+                Math.floor( b )...Math.ceil( c );
+            }
+        } else {
+            if( b > c ){ // b,a, b,c 
+                (( a > c )? Math.floor( c ): Math.ceil( a ))...Math.ceil( b );
+            } else { // c,b,a
+                Math.floor( a )...Math.ceil( c );
+            }
+        }
+    }
 /**
     Like a normal IntIterator but allows access of start and max after construction and reuse.
 **/
