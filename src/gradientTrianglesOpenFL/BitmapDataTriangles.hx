@@ -182,10 +182,10 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
         var g2 = ( onTop >> 8 ) & 0xFF;
         var b2 = onTop & 0xFF;
         var a3 = a1 * ( 1 - a2 );
-        var r = boundChannel( colBlendFunc( r1, r2, a3, a2 ) );
-        var g = boundChannel( colBlendFunc( g1, g2, a3, a2 ) );
-        var b = boundChannel( colBlendFunc( b1, b2, a3, a2 ) );
-        var a = boundChannel( alphaBlendFunc( a3, a2 ) );
+        var r = colBlendFunc( r1, r2, a3, a2 );
+        var g = colBlendFunc( g1, g2, a3, a2 );
+        var b = colBlendFunc( b1, b2, a3, a2 );
+        var a = alphaBlendFunc( a3, a2 );
         return ARGB.create( a, r, g, b );
     }
     inline static function colBlendFunc( x1: Float, x2: Float, a3: Float, a2: Float ): Int
