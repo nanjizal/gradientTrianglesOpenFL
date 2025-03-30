@@ -52,7 +52,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                     if( blend == false ){
                         this.setPixel32( px, py, color );
                     } else {
-                        this.setPixel( alphaBlend( this.getPixel32( px, py ), color ) );
+                        this.setPixel( px, py, alphaBlend( this.getPixel32( px, py ), color ) );
                     }
                 }
             }
@@ -93,7 +93,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                         if( blend == false ){
                             this.setPixel32( x, y, color );
                         } else {
-                            this.setPixel( alphaBlend( this.getPixel32( x, y ), color ) );
+                            this.setPixel( x, y, alphaBlend( this.getPixel32( x, y ), color ) );
                         }
                         foundY = true;
                     } else {
@@ -147,7 +147,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                     if( blend == false ){
                         this.setPixel32( px, py, col );
                     } else {
-                        this.setPixel( alphaBlend( this.getPixel32( px, py ), col ) );
+                        this.setPixel( px, py, alphaBlend( this.getPixel32( px, py ), col ) );
                     }
                 }
             }
