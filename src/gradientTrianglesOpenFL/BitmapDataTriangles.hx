@@ -9,7 +9,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     }
     public static inline function drawGradientTriangle( ax: Float, ay: Float, colA: Int
                                                       , bx: Float, by: Float, colB: Int
-                                                      , cx: Float, cy: Float, colC: Int ): BitmapDataTriangle {
+                                                      , cx: Float, cy: Float, colC: Int ): BitmapDataTriangles {
         var aA = ( colB >> 24 ) & 0xFF;
         var rA = ( colB >> 16 ) & 0xFF;
         var gA = ( colB >> 8 ) & 0xFF;
@@ -51,6 +51,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
                 }
             }
         }
+        return this;
     }
     private inline static function boundChannel( f: Float ): Int {
         var i = Std.int( f );
