@@ -1,0 +1,12 @@
+{
+    "name"         : "gradientTrianglesOpenFL",
+    "url"          : "https://github.com/nanjizal/gradientTrianglesOpenFL#gradientTrianglesOpenFL",
+    "license"      : "MIT",
+    "tags"         : ["openFL","graphics"],
+    "description"  : "gradientTrianglesOpenFL, for drawing gradient triangles with bitmap",
+    "version"      : "0.0.1-alpha",
+    "releasenote"  : "See https://github.com/nanjizal/gradientTrianglesOpenFL/blob/master/CHANGELOG.md",
+    "contributors" : ["Nanjizal"],
+    "classPath"    : "src/",
+    "dependencies" : {}
+}
