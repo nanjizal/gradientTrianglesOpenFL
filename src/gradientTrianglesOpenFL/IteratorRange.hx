@@ -1,5 +1,4 @@
-
-package gradientTrianglesOpenFL
+package gradientTrianglesOpenFL;
 /**
     Like a normal IntIterator but allows access of start and max after construction and reuse.
 **/
