@@ -7,7 +7,7 @@ abstract BitmapDataTriangles( BitmapData ) from BitmapData to BitmapData {
     public inline function new( bd: BitmapData ){
         this = bd;
     }
-    public static inline function drawGradientTriangle( ax: Float, ay: Float, colA: Int
+    public inline function drawGradientTriangle( ax: Float, ay: Float, colA: Int
                                                       , bx: Float, by: Float, colB: Int
                                                       , cx: Float, cy: Float, colC: Int ): BitmapDataTriangles {
         var aA = ( colB >> 24 ) & 0xFF;
