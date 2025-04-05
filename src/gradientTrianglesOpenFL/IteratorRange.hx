@@ -16,6 +16,11 @@ import gradientTrianglesOpenFL.IteratorRange;
             }
         }
     }
+    inline function boundIterator4( a: Float, b: Float, c: Float, d: Float): IteratorRange {
+        var min = Std.int( Math.min( Math.min( a, b ), Math.min( c, d ) ) );
+        var max = Std.int( Math.max( Math.max( a, b ), Math.max( c, d ) ) );
+        return new IteratorRange( min, max );
+    }
 /**
     Like a normal IntIterator but allows access of start and max after construction and reuse.
 **/
